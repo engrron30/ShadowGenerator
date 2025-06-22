@@ -1,4 +1,4 @@
-# ShadowGenerator
+# Who's That Pokemon Generator
 Generate a shadow picture of your uploaded photo using Python script.
 
 Ver1.0:
