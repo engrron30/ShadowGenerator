@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <math.h>
 
 #define ASSETS_PATH         	"Assets/"
 #define PICTURE_PATH        	ASSETS_PATH "Pictures/"
@@ -12,6 +13,36 @@ typedef enum {
     MENU_COUNT
 } MenuOption;
 
+
+// Public Functions
+void addControlNotes()
+{
+    // Heart-beating effect: oscillating font size
+    float time = GetTime();
+    float scale = 1.0f + 0.1f * sinf(time * 4.0f);  // Faster beat
+    int baseSize = 30;
+    int fontSize = baseSize * scale;
+    int margin = 20;
+    int textY = GetScreenHeight()/3 + 500 - fontSize;
+    int textX = GetScreenWidth()/1.3 - fontSize * 2 - margin - 150;
+    const char *text = "[ Press ENTER to select ]";
+
+    DrawText(text, textX, textY, fontSize, BLACK);
+}
+
+void addVersion()
+{
+    const char *footer = "ShadowGenv2.0";
+    int fontSize = 20;
+    int margin = 20;
+    int textY = GetScreenHeight() - fontSize - margin;
+    int textX = GetScreenWidth() - fontSize - margin - 150;
+
+    DrawText(footer, textX, textY, fontSize, BLACK);
+}
+
+
+// Main Program
 int main(void)
 {
     InitWindow(0, 0, "Raylib Menu");
@@ -50,6 +81,8 @@ int main(void)
             }
         }
 
+
+
         // Draw
         BeginDrawing();
             ClearBackground(RED);
@@ -71,7 +104,7 @@ int main(void)
                 const char *text 	= menuItems[i];
                 Color color 		= (i == selected) ? YELLOW : GRAY;
                 Color outlineColor 	= (i == selected) ? BLACK  : GREEN;
-		int fontSize 		= (i == selected) ? 90 : 70;
+		int fontSize 		= (i == selected) ? 100 : 70;
 		int outline 		= (i == selected) ? 5 : 2;
                 int textWidth 		= MeasureText(text, fontSize);
 		int textX 		= screenWidth/4 - textWidth/2 + 50;
@@ -84,6 +117,10 @@ int main(void)
 		DrawText(text, textX, textY + outline, fontSize, outlineColor);
                 DrawText(text, screenWidth/4 - textWidth/2 + 50, textY, fontSize, color);
             }
+
+    	    addControlNotes();
+    	    addVersion();
+
         EndDrawing();
     }
 
