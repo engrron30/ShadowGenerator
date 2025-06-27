@@ -18,9 +18,6 @@ int main(void)
     InitResources();
     SetTargetFPS(60);
 
-    //const char *menuItems[MENU_COUNT] = { "Start", "Credits", "Exit" };
-    //MenuOption selectedMenu = MENU_START;
-
     while (!WindowShouldClose())
     {
         // Handle input
@@ -29,15 +26,19 @@ int main(void)
 
         if (IsKeyPressed(KEY_ENTER)) {
             switch (gSelectedMenu) {
+
                 case MENU_START:
                     TraceLog(LOG_INFO, "Start selected");
                     // TODO: Add your start logic here
+		    CaptureMenuSnapshot();
 		    RunStartScreen();
                     break;
+
                 case MENU_CREDITS:
                     TraceLog(LOG_INFO, "Credits selected");
                     // TODO: Show credits screen
                     break;
+
                 case MENU_EXIT:
                     CloseWindow();
                     return 0;
