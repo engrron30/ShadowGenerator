@@ -1,5 +1,11 @@
 #include "main_menu.h"
+#include "resources.h"
 #include <math.h>
+
+// extern variables
+const char *gMenuItems[MENU_COUNT] = { "Start", "Credits", "Exit" };
+MenuOption gSelectedMenu = MENU_START;
+
 
 static void addControlNotes()
 {
@@ -32,8 +38,7 @@ static void addVersion()
     DrawText(footer, textX, textY, fontSize, BLACK);
 }
 
-void RunMainMenu(Texture2D blue_expl_txtr, Texture2D whos_pkmn_txtr,
-                 const char *menuItems[], MenuOption selected)
+void RunMainMenu( void )
 {
 
     const int screenWidth = GetScreenWidth();
@@ -42,20 +47,20 @@ void RunMainMenu(Texture2D blue_expl_txtr, Texture2D whos_pkmn_txtr,
     BeginDrawing();
         ClearBackground(RED);
 
-        int blue_expl_x = screenWidth - blue_expl_txtr.width - 1100;
-        int blue_expl_y = screenHeight / 2 - blue_expl_txtr.height / 2;
-        DrawTexture(blue_expl_txtr, blue_expl_x, blue_expl_y, WHITE);
+        int blue_expl_x = screenWidth - gBlueExplosionTexture.width - 1100;
+        int blue_expl_y = screenHeight / 2 - gBlueExplosionTexture.height / 2;
+        DrawTexture(gBlueExplosionTexture, blue_expl_x, blue_expl_y, WHITE);
 
-        int whos_pkmn_x = screenWidth - whos_pkmn_txtr.width - 100;
-        int whos_pkmn_y = screenHeight / 2 - whos_pkmn_txtr.height / 2;
-        DrawTexture(whos_pkmn_txtr, whos_pkmn_x, whos_pkmn_y, WHITE);
+        int whos_pkmn_x = screenWidth - gWhosThatPokemonTexture.width - 100;
+        int whos_pkmn_y = screenHeight / 2 - gWhosThatPokemonTexture.height / 2;
+        DrawTexture(gWhosThatPokemonTexture, whos_pkmn_x, whos_pkmn_y, WHITE);
 
         for (int i = 0; i < MENU_COUNT; i++) {
-            const char *text = menuItems[i];
-            Color color = (i == selected) ? YELLOW : GRAY;
-            Color outlineColor = (i == selected) ? BLACK : GREEN;
-            int fontSize = (i == selected) ? 100 : 70;
-            int outline = (i == selected) ? 5 : 2;
+            const char *text = gMenuItems[i];
+            Color color = (i == gSelectedMenu) ? YELLOW : GRAY;
+            Color outlineColor = (i == gSelectedMenu) ? BLACK : GREEN;
+            int fontSize = (i == gSelectedMenu) ? 100 : 70;
+            int outline = (i == gSelectedMenu) ? 5 : 2;
             int textWidth = MeasureText(text, fontSize);
             int textX = screenWidth / 4 - textWidth / 2 + 50;
             int textY = i * 120 + 350;
