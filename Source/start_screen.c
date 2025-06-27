@@ -2,15 +2,36 @@
 #include "resources.h"
 #include "main_menu.h"
 
+#include <unistd.h>
+
 
 void RunStartScreen(void)
 {
     const int screenWidth = GetScreenWidth();
     const int screenHeight = GetScreenHeight();
+    float boxWidth  = 600;
+    float boxHeight = 600;
 
-    Rectangle leftBox  = { screenWidth/4.0f - 150, screenHeight/2.0f - 100, 200, 200 };
-    Rectangle rightBox = { 3*screenWidth/4.0f - 50, screenHeight/2.0f - 100, 200, 200 };
-    Rectangle generateBtn = { screenWidth/2.0f - 100, screenHeight - 150, 200, 50 };
+    Rectangle leftBox  = {
+        screenWidth / 4.0f - boxWidth / 2,
+        screenHeight / 2.0f - boxHeight / 2,
+        boxWidth,
+        boxHeight
+    };
+
+    Rectangle rightBox = {
+        3 * screenWidth / 4.0f - boxWidth / 2,
+        screenHeight / 2.0f - boxHeight / 2,
+        boxWidth,
+        boxHeight
+    };
+
+    Rectangle generateBtn = {
+        screenWidth / 2.0f - 100,
+        screenHeight - 150,
+        200,
+        50
+    };
 
     while (!WindowShouldClose())
     {
@@ -40,22 +61,32 @@ void RunStartScreen(void)
             }
 
             // Title
-            DrawText("Generate your Shadow here", screenWidth/2 - MeasureText("Generate your Shadow here", 60)/2, 80, 60, YELLOW);
+            DrawText("Generate Your Shadow here", screenWidth/2 - MeasureText("Generate your Shadow here", 60)/2, 80, 60, YELLOW);
 
-            // Left Box
             DrawRectangleRec(leftBox, hoverLeft ? (Color){ 200, 200, 255, 180 } : (Color){ 150, 150, 150, 150 });
-            DrawRectangleLinesEx(leftBox, 3, WHITE);
-            DrawText("Upload Left", leftBox.x + 20, leftBox.y + leftBox.height + 10, 20, LIGHTGRAY);
+            DrawRectangleLinesEx(leftBox, 4, WHITE);
+            DrawText("Your Image", leftBox.x + 20, leftBox.y + leftBox.height + 10, 25, LIGHTGRAY);
 
-            // Right Box
+            // Right Upload Box
             DrawRectangleRec(rightBox, hoverRight ? (Color){ 200, 200, 255, 180 } : (Color){ 150, 150, 150, 150 });
-            DrawRectangleLinesEx(rightBox, 3, WHITE);
-            DrawText("Upload Right", rightBox.x + 20, rightBox.y + rightBox.height + 10, 20, LIGHTGRAY);
+            DrawRectangleLinesEx(rightBox, 4, WHITE);
+            DrawText("Generated Shadow", rightBox.x + 20, rightBox.y + rightBox.height + 10, 25, LIGHTGRAY);
 
-            // Generate Button
-            DrawRectangleRec(generateBtn, clickGenerate ? DARKGRAY : GRAY);
-            DrawRectangleLinesEx(generateBtn, 2, BLACK);
-            DrawText("Generate", generateBtn.x + 40, generateBtn.y + 15, 25, BLACK);
+	    // Generate Button
+    	    Color btnColor;
+	    if (clickGenerate) { 
+		btnColor = GRAY;
+	    } else {
+	    	btnColor = WHITE;
+	    }
+
+    	    DrawRectangleRec(generateBtn, btnColor);
+    	    DrawRectangleLinesEx(generateBtn, 2, BLACK);
+    	    const char *btnText = "Generate";
+    	    int btnFontSize = 25;
+    	    int textWidth = MeasureText(btnText, btnFontSize);
+    	    DrawText(btnText, generateBtn.x + generateBtn.width/2 - textWidth/2, generateBtn.y + 12, btnFontSize, BLACK);
+
 
             // Tooltip or Debug (optional)
             if (hoverLeft)  DrawText("Click to upload image", 20, screenHeight - 60, 20, WHITE);
