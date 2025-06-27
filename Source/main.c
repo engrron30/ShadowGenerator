@@ -1,5 +1,9 @@
-#include "raylib.h"
+// C Libraries
 #include <math.h>
+
+// Local Libraries
+#include "raylib.h"
+#include "start_screen.h"
 
 #define ASSETS_PATH         	"Assets/"
 #define PICTURE_PATH        	ASSETS_PATH "Pictures/"
