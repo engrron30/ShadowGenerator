@@ -7,11 +7,6 @@
 #include "main_menu.h"
 #include "start_screen.h"
 
-#define ASSETS_PATH         	"Assets/"
-#define PICTURE_PATH        	ASSETS_PATH "Pictures/"
-#define WHOS_THAT_POKEMON_IMG	PICTURE_PATH "whos-that-pokemon.png"
-#define BLUE_EXPLOSION_IMG	PICTURE_PATH "blue-explosion-background-for-menu.png"
-
 
 // Main Program
 int main(void)

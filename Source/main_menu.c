@@ -35,6 +35,7 @@ static void addVersion()
 void RunMainMenu(Texture2D blue_expl_txtr, Texture2D whos_pkmn_txtr,
                  const char *menuItems[], MenuOption selected)
 {
+
     const int screenWidth = GetScreenWidth();
     const int screenHeight = GetScreenHeight();
 
