@@ -10,8 +10,10 @@ typedef enum {
     MENU_COUNT
 } MenuOption;
 
-void RunMainMenu(Texture2D blue_expl_txtr, Texture2D whos_pkmn_txtr,
-                 const char *menuItems[], MenuOption selected);
+extern const char *gMenuItems[MENU_COUNT];
+extern MenuOption gSelectedMenu;
+
+void RunMainMenu(void);
 
 #endif // MAIN_MENU_H
 
