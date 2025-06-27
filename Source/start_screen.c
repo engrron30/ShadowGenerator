@@ -1,3 +1,6 @@
+#include "raylib.h"
+#include "start_screen.h"
+
 void RunStartScreen()
 {
     while (!WindowShouldClose()) {
