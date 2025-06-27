@@ -67,7 +67,6 @@ void RunStartScreen(void)
             DrawRectangleLinesEx(leftBox, 4, WHITE);
             DrawText("Your Image", leftBox.x + 20, leftBox.y + leftBox.height + 10, 25, LIGHTGRAY);
 
-            // Right Upload Box
             DrawRectangleRec(rightBox, hoverRight ? (Color){ 200, 200, 255, 180 } : (Color){ 150, 150, 150, 150 });
             DrawRectangleLinesEx(rightBox, 4, WHITE);
             DrawText("Generated Shadow", rightBox.x + 20, rightBox.y + rightBox.height + 10, 25, LIGHTGRAY);
