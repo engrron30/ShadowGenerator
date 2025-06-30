@@ -73,6 +73,25 @@ static void DrawButton(Rectangle btn, const char *text, bool isClicked)
     DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
 }
 
+// ─────────────────────────────
+// Draw Button
+// ─────────────────────────────
+void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool isClicked)
+{
+    Color btnColor = COLOR_BTN_DEFAULT;
+
+    if (isClicked)
+        btnColor = GRAY;
+    else if (isHovered)
+        btnColor = LIGHTGRAY;
+
+    DrawRectangleRec(btn, btnColor);
+    DrawRectangleLinesEx(btn, 2, BLACK);
+
+    int textWidth = MeasureText(text, FONT_SIZE_LABEL);
+    DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
+}
+
 
 // ─────────────────────────────
 // Main Start Screen UI Logic
@@ -141,17 +160,7 @@ void RunStartScreen(void)
             DrawLabeledBox(rightBox, "Generated Shadow",   hoverRight);
 
             // Generate Button
-	    Color currentBtnColor = COLOR_BTN_DEFAULT;  // default: white
-
-	    if (generateClicked)
-    		currentBtnColor = GRAY;
-	    else if (hoverGenerate)
-    		currentBtnColor = LIGHTGRAY;
-
-	    DrawRectangleRec(generateBtn, currentBtnColor);
-	    DrawRectangleLinesEx(generateBtn, 2, BLACK);
-	    int textWidth = MeasureText(GenerateBtnText, FONT_SIZE_LABEL);
-	    DrawText(GenerateBtnText, generateBtn.x + generateBtn.width / 2 - textWidth / 2, generateBtn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
+	    DrawInteractiveButton(generateBtn, GenerateBtnText, hoverGenerate, generateClicked);
 
             // Tooltip
             if (hoverLeft)
