@@ -69,22 +69,16 @@ void RunStartScreen(void)
             // Title
             DrawText("Generate Your Shadow here", screenWidth/2 - MeasureText("Generate your Shadow here", 60)/2, 80, 60, YELLOW);
 
-            DrawRectangleRec(leftBox, hoverLeft ? hoverBoxColor: defaultBoxColor);
+            DrawRectangleRec(leftBox, hoverLeft ? hoverBoxColor : defaultBoxColor);
             DrawRectangleLinesEx(leftBox, 4, WHITE);
             DrawText("Your Image", leftBox.x + 20, leftBox.y + leftBox.height + 10, 25, LIGHTGRAY);
 
-            DrawRectangleRec(rightBox, hoverRight ? (Color){ 200, 200, 255, 180 } : (Color){ 150, 150, 150, 150 });
+            DrawRectangleRec(rightBox, hoverRight ? hoverBoxColor : defaultBoxColor);
             DrawRectangleLinesEx(rightBox, 4, WHITE);
             DrawText("Generated Shadow", rightBox.x + 20, rightBox.y + rightBox.height + 10, 25, LIGHTGRAY);
 
 	    // Generate Button
-    	    Color btnColor;
-	    if (clickGenerate) { 
-		btnColor = GRAY;
-	    } else {
-	    	btnColor = WHITE;
-	    }
-
+    	    Color btnColor = clickGenerate? GRAY : WHITE;
     	    DrawRectangleRec(generateBtn, btnColor);
     	    DrawRectangleLinesEx(generateBtn, 2, BLACK);
     	    const char *btnText = "Generate";
