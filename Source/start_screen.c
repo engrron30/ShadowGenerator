@@ -26,12 +26,18 @@ void RunStartScreen(void)
         boxHeight
     };
 
+    Color defaultBoxColor   = (Color) { 150, 150, 150, 150 };
+    Color hoverBoxColor     = (Color) { 200, 200, 255, 180 };
+    Color borderColor       = WHITE;
+    Color labelTextColor    = LIGHTGRAY;
+
     Rectangle generateBtn = {
         screenWidth / 2.0f - 100,
         screenHeight - 150,
         200,
         50
     };
+    
 
     while (!WindowShouldClose())
     {
@@ -63,7 +69,7 @@ void RunStartScreen(void)
             // Title
             DrawText("Generate Your Shadow here", screenWidth/2 - MeasureText("Generate your Shadow here", 60)/2, 80, 60, YELLOW);
 
-            DrawRectangleRec(leftBox, hoverLeft ? (Color){ 200, 200, 255, 180 } : (Color){ 150, 150, 150, 150 });
+            DrawRectangleRec(leftBox, hoverLeft ? hoverBoxColor: defaultBoxColor);
             DrawRectangleLinesEx(leftBox, 4, WHITE);
             DrawText("Your Image", leftBox.x + 20, leftBox.y + leftBox.height + 10, 25, LIGHTGRAY);
 
