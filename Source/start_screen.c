@@ -25,9 +25,29 @@ Color COLOR_BTN_DEFAULT 	= WHITE;
 Color COLOR_BTN_CLICK   	= GRAY;
 
 // ─────────────────────────────
+// UI Text
+// ─────────────────────────────          
+const char *ScreenTitle		= "Generate Your Shadow here";
+const char *GenerateBtnText 	= "Generate";
+
+// ─────────────────────────────
 // UI Vectors
 // ─────────────────────────────
 Vector2 VECTOR_DEFAULT	= { 0, 0 };
+
+// ─────────────────────────────
+// UI Boolean States
+// ─────────────────────────────
+static bool hoverLeft;
+static bool hoverRight;
+static bool hoverGenerate;
+
+// ─────────────────────────────
+// Generate Button Delay Handlers
+// ─────────────────────────────
+double generateClickTime 	= 0;
+const double generateClickDelay = 0.2; // 200 milliseconds
+bool generateClicked = false;
 
 // ─────────────────────────────
 // Draw a hoverable box with a label
@@ -52,6 +72,7 @@ static void DrawButton(Rectangle btn, const char *text, bool isClicked)
     int textWidth = MeasureText(text, FONT_SIZE_LABEL);
     DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
 }
+
 
 // ─────────────────────────────
 // Main Start Screen UI Logic
@@ -89,9 +110,19 @@ void RunStartScreen(void)
 
         Vector2 mouse = GetMousePosition();
 
-        bool hoverLeft      = CheckCollisionPointRec(mouse, leftBox);
-        bool hoverRight     = CheckCollisionPointRec(mouse, rightBox);
-        bool clickGenerate  = (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(mouse, generateBtn));
+        hoverLeft      = CheckCollisionPointRec(mouse, leftBox);
+        hoverRight     = CheckCollisionPointRec(mouse, rightBox);
+        hoverGenerate  = CheckCollisionPointRec(mouse, generateBtn);
+
+	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
+            generateClickTime = GetTime();
+            generateClicked = true;
+	}
+
+	if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
+            generateClicked = false;
+	}
+
 
         BeginDrawing();
             ClearBackground(BLANK);
@@ -103,15 +134,24 @@ void RunStartScreen(void)
             }
 
             // Title
-            const char *title = "Generate Your Shadow here";
-            DrawText(title, screenWidth / 2 - MeasureText(title, 60) / 2, 80, 60, YELLOW);
+            DrawText(ScreenTitle, screenWidth / 2 - MeasureText(ScreenTitle, 60) / 2, 80, 60, YELLOW);
 
             // Left and Right Image Boxes
             DrawLabeledBox(leftBox,  "Your Image",         hoverLeft);
             DrawLabeledBox(rightBox, "Generated Shadow",   hoverRight);
 
             // Generate Button
-            DrawButton(generateBtn, "Generate", clickGenerate);
+	    Color currentBtnColor = COLOR_BTN_DEFAULT;  // default: white
+
+	    if (generateClicked)
+    		currentBtnColor = GRAY;
+	    else if (hoverGenerate)
+    		currentBtnColor = LIGHTGRAY;
+
+	    DrawRectangleRec(generateBtn, currentBtnColor);
+	    DrawRectangleLinesEx(generateBtn, 2, BLACK);
+	    int textWidth = MeasureText(GenerateBtnText, FONT_SIZE_LABEL);
+	    DrawText(GenerateBtnText, generateBtn.x + generateBtn.width / 2 - textWidth / 2, generateBtn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
 
             // Tooltip
             if (hoverLeft)
