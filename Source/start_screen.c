@@ -25,10 +25,11 @@ Color COLOR_BTN_DEFAULT 	= WHITE;
 Color COLOR_BTN_CLICK   	= GRAY;
 
 // ─────────────────────────────
-// UI Text
-// ─────────────────────────────          
-const char *ScreenTitle		= "Generate Your Shadow here";
-const char *GenerateBtnText 	= "Generate";
+// UI Strings
+// ─────────────────────────────
+const char *START_STR		= "Start";
+const char *GENERATE_STR	= "Generate";
+const char *SAVE_IMG_STR	= "Save Image";
 
 // ─────────────────────────────
 // UI Vectors
@@ -41,6 +42,8 @@ Vector2 VECTOR_DEFAULT	= { 0, 0 };
 static bool hoverLeft;
 static bool hoverRight;
 static bool hoverGenerate;
+static bool hoverSave;
+static bool firstLoadStart = true;
 
 // ─────────────────────────────
 // Generate Button Delay Handlers
@@ -79,12 +82,17 @@ static void DrawButton(Rectangle btn, const char *text, bool isClicked)
 void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool isClicked)
 {
     Color btnColor = COLOR_BTN_DEFAULT;
+    if (text == SAVE_IMG_STR && firstLoadStart) {
+	btnColor = GRAY;
+	goto JUMP_TO_DRAW;
+    }
 
     if (isClicked)
         btnColor = GRAY;
     else if (isHovered)
         btnColor = LIGHTGRAY;
 
+JUMP_TO_DRAW:
     DrawRectangleRec(btn, btnColor);
     DrawRectangleLinesEx(btn, 2, BLACK);
 
@@ -117,10 +125,17 @@ void RunStartScreen(void)
     };
 
     Rectangle generateBtn = {
-        screenWidth / 2.0f - BTN_WIDTH / 2,
-        screenHeight - 150,
-        BTN_WIDTH,
-        BTN_HEIGHT
+	screenWidth / 2 - BTN_WIDTH / 2,
+    	screenHeight / 2 + rightBox.height / 3 - BTN_HEIGHT,
+    	BTN_WIDTH,
+    	BTN_HEIGHT
+    };
+
+    Rectangle saveBtn = {
+	screenWidth / 2 - BTN_WIDTH / 2,
+    	screenHeight / 2 + rightBox.height / 2 - BTN_HEIGHT,
+    	BTN_WIDTH,
+    	BTN_HEIGHT
     };
 
     while (!WindowShouldClose())
@@ -129,9 +144,10 @@ void RunStartScreen(void)
 
         Vector2 mouse = GetMousePosition();
 
-        hoverLeft      = CheckCollisionPointRec(mouse, leftBox);
-        hoverRight     = CheckCollisionPointRec(mouse, rightBox);
-        hoverGenerate  = CheckCollisionPointRec(mouse, generateBtn);
+        hoverLeft	= CheckCollisionPointRec(mouse, leftBox);
+        hoverRight	= CheckCollisionPointRec(mouse, rightBox);
+        hoverGenerate	= CheckCollisionPointRec(mouse, generateBtn);
+	hoverSave	= CheckCollisionPointRec(mouse, saveBtn);
 
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
             generateClickTime = GetTime();
@@ -153,14 +169,15 @@ void RunStartScreen(void)
             }
 
             // Title
-            DrawText(ScreenTitle, screenWidth / 2 - MeasureText(ScreenTitle, 60) / 2, 80, 60, YELLOW);
+            DrawText(START_STR, screenWidth / 2 - MeasureText(START_STR, 60) / 2, 80, 60, YELLOW);
 
             // Left and Right Image Boxes
             DrawLabeledBox(leftBox,  "Your Image",         hoverLeft);
             DrawLabeledBox(rightBox, "Generated Shadow",   hoverRight);
 
             // Generate Button
-	    DrawInteractiveButton(generateBtn, GenerateBtnText, hoverGenerate, generateClicked);
+	    DrawInteractiveButton(generateBtn,	GENERATE_STR,	hoverGenerate,	generateClicked);
+	    DrawInteractiveButton(saveBtn,	SAVE_IMG_STR,	hoverSave,	false);
 
             // Tooltip
             if (hoverLeft)
