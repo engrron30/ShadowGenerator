@@ -15,18 +15,24 @@ const int BTN_HEIGHT = 50;
 // ─────────────────────────────
 // UI Colors
 // ─────────────────────────────
-Color COLOR_BOX_DEFAULT = (Color){ 150, 150, 150, 150 };
-Color COLOR_BOX_HOVER   = (Color){ 200, 200, 255, 180 };
-Color COLOR_BORDER      = WHITE;
-Color COLOR_LABEL       = LIGHTGRAY;
-Color COLOR_BTN_TEXT    = BLACK;
-Color COLOR_BTN_DEFAULT = WHITE;
-Color COLOR_BTN_CLICK   = GRAY;
+Color COLOR_START_BACKGND	= (Color) { 255, 255, 255, 100 };
+Color COLOR_BOX_DEFAULT 	= (Color) { 150, 150, 150, 150 };
+Color COLOR_BOX_HOVER   	= (Color) { 200, 200, 255, 180 };
+Color COLOR_BORDER      	= WHITE;
+Color COLOR_LABEL       	= LIGHTGRAY;
+Color COLOR_BTN_TEXT    	= BLACK;
+Color COLOR_BTN_DEFAULT 	= WHITE;
+Color COLOR_BTN_CLICK   	= GRAY;
+
+// ─────────────────────────────
+// UI Vectors
+// ─────────────────────────────
+Vector2 VECTOR_DEFAULT	= { 0, 0 };
 
 // ─────────────────────────────
 // Draw a hoverable box with a label
 // ─────────────────────────────
-void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
+static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
 {
     Color boxColor = isHovered ? COLOR_BOX_HOVER : COLOR_BOX_DEFAULT;
     DrawRectangleRec(box, boxColor);
@@ -37,7 +43,7 @@ void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
 // ─────────────────────────────
 // Draw a centered button with text
 // ─────────────────────────────
-void DrawButton(Rectangle btn, const char *text, bool isClicked)
+static void DrawButton(Rectangle btn, const char *text, bool isClicked)
 {
     Color fillColor = isClicked ? COLOR_BTN_CLICK : COLOR_BTN_DEFAULT;
     DrawRectangleRec(btn, fillColor);
@@ -93,7 +99,7 @@ void RunStartScreen(void)
             // Optional background
             if (gMenuSnapshotValid) {
                 Rectangle snapshotRect = { 0, 0, (float) screenWidth, -(float) screenHeight };
-                DrawTextureRec(gMenuSnapshotTexture.texture, snapshotRect, (Vector2){0, 0}, (Color){255, 255, 255, 100});
+                DrawTextureRec(gMenuSnapshotTexture.texture, snapshotRect, VECTOR_DEFAULT, COLOR_START_BACKGND);
             }
 
             // Title
