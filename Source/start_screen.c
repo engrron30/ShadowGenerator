@@ -2,94 +2,116 @@
 #include "resources.h"
 #include "main_menu.h"
 
-#include <unistd.h>
+// ─────────────────────────────
+// UI Configuration Constants
+// ─────────────────────────────
+const int BOX_WIDTH = 600;
+const int BOX_HEIGHT = 600;
+const int BOX_BORDER = 4;
+const int FONT_SIZE_LABEL = 25;
+const int BTN_WIDTH = 200;
+const int BTN_HEIGHT = 50;
 
+// ─────────────────────────────
+// UI Colors
+// ─────────────────────────────
+Color COLOR_BOX_DEFAULT = (Color){ 150, 150, 150, 150 };
+Color COLOR_BOX_HOVER   = (Color){ 200, 200, 255, 180 };
+Color COLOR_BORDER      = WHITE;
+Color COLOR_LABEL       = LIGHTGRAY;
+Color COLOR_BTN_TEXT    = BLACK;
+Color COLOR_BTN_DEFAULT = WHITE;
+Color COLOR_BTN_CLICK   = GRAY;
 
+// ─────────────────────────────
+// Draw a hoverable box with a label
+// ─────────────────────────────
+void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
+{
+    Color boxColor = isHovered ? COLOR_BOX_HOVER : COLOR_BOX_DEFAULT;
+    DrawRectangleRec(box, boxColor);
+    DrawRectangleLinesEx(box, BOX_BORDER, COLOR_BORDER);
+    DrawText(label, box.x + 20, box.y + box.height + 10, FONT_SIZE_LABEL, COLOR_LABEL);
+}
+
+// ─────────────────────────────
+// Draw a centered button with text
+// ─────────────────────────────
+void DrawButton(Rectangle btn, const char *text, bool isClicked)
+{
+    Color fillColor = isClicked ? COLOR_BTN_CLICK : COLOR_BTN_DEFAULT;
+    DrawRectangleRec(btn, fillColor);
+    DrawRectangleLinesEx(btn, 2, BLACK);
+
+    int textWidth = MeasureText(text, FONT_SIZE_LABEL);
+    DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
+}
+
+// ─────────────────────────────
+// Main Start Screen UI Logic
+// ─────────────────────────────
 void RunStartScreen(void)
 {
-    const int screenWidth = GetScreenWidth();
-    const int screenHeight = GetScreenHeight();
-    float boxWidth  = 600;
-    float boxHeight = 600;
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
 
-    Rectangle leftBox  = {
-        screenWidth / 4.0f - boxWidth / 2,
-        screenHeight / 2.0f - boxHeight / 2,
-        boxWidth,
-        boxHeight
+    // Layouts
+    Rectangle leftBox = {
+        screenWidth / 4.0f - BOX_WIDTH / 2,
+        screenHeight / 2.0f - BOX_HEIGHT / 2,
+        BOX_WIDTH,
+        BOX_HEIGHT
     };
 
     Rectangle rightBox = {
-        3 * screenWidth / 4.0f - boxWidth / 2,
-        screenHeight / 2.0f - boxHeight / 2,
-        boxWidth,
-        boxHeight
+        3 * screenWidth / 4.0f - BOX_WIDTH / 2,
+        screenHeight / 2.0f - BOX_HEIGHT / 2,
+        BOX_WIDTH,
+        BOX_HEIGHT
     };
-
-    Color defaultBoxColor   = (Color) { 150, 150, 150, 150 };
-    Color hoverBoxColor     = (Color) { 200, 200, 255, 180 };
-    Color borderColor       = WHITE;
-    Color labelTextColor    = LIGHTGRAY;
 
     Rectangle generateBtn = {
-        screenWidth / 2.0f - 100,
+        screenWidth / 2.0f - BTN_WIDTH / 2,
         screenHeight - 150,
-        200,
-        50
+        BTN_WIDTH,
+        BTN_HEIGHT
     };
-    
 
     while (!WindowShouldClose())
     {
-        // Back navigation
         if (IsKeyPressed(KEY_BACKSPACE)) break;
 
         Vector2 mouse = GetMousePosition();
 
-        bool hoverLeft  = CheckCollisionPointRec(mouse, leftBox);
-        bool hoverRight = CheckCollisionPointRec(mouse, rightBox);
-        bool clickGenerate = false;
-
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(mouse, generateBtn)) {
-            clickGenerate = true;
-        }
+        bool hoverLeft      = CheckCollisionPointRec(mouse, leftBox);
+        bool hoverRight     = CheckCollisionPointRec(mouse, rightBox);
+        bool clickGenerate  = (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(mouse, generateBtn));
 
         BeginDrawing();
-            ClearBackground(BLANK);  // allow for transparent overlay
+            ClearBackground(BLANK);
 
-            // Draw transparent background from main menu
+            // Optional background
             if (gMenuSnapshotValid) {
-		Rectangle SnapshotRect = { 0, 0, (float) screenWidth, -(float) screenHeight };
-		Vector2 SnapshotVector = { 0, 0 };
-		Color faded = (Color){255, 255, 255, 100}; // semi-transparent
-
-                DrawTextureRec(gMenuSnapshotTexture.texture, SnapshotRect, SnapshotVector, faded);
+                Rectangle snapshotRect = { 0, 0, (float) screenWidth, -(float) screenHeight };
+                DrawTextureRec(gMenuSnapshotTexture.texture, snapshotRect, (Vector2){0, 0}, (Color){255, 255, 255, 100});
             }
 
             // Title
-            DrawText("Generate Your Shadow here", screenWidth/2 - MeasureText("Generate your Shadow here", 60)/2, 80, 60, YELLOW);
+            const char *title = "Generate Your Shadow here";
+            DrawText(title, screenWidth / 2 - MeasureText(title, 60) / 2, 80, 60, YELLOW);
 
-            DrawRectangleRec(leftBox, hoverLeft ? hoverBoxColor : defaultBoxColor);
-            DrawRectangleLinesEx(leftBox, 4, WHITE);
-            DrawText("Your Image", leftBox.x + 20, leftBox.y + leftBox.height + 10, 25, LIGHTGRAY);
+            // Left and Right Image Boxes
+            DrawLabeledBox(leftBox,  "Your Image",         hoverLeft);
+            DrawLabeledBox(rightBox, "Generated Shadow",   hoverRight);
 
-            DrawRectangleRec(rightBox, hoverRight ? hoverBoxColor : defaultBoxColor);
-            DrawRectangleLinesEx(rightBox, 4, WHITE);
-            DrawText("Generated Shadow", rightBox.x + 20, rightBox.y + rightBox.height + 10, 25, LIGHTGRAY);
+            // Generate Button
+            DrawButton(generateBtn, "Generate", clickGenerate);
 
-	    // Generate Button
-    	    Color btnColor = clickGenerate? GRAY : WHITE;
-    	    DrawRectangleRec(generateBtn, btnColor);
-    	    DrawRectangleLinesEx(generateBtn, 2, BLACK);
-    	    const char *btnText = "Generate";
-    	    int btnFontSize = 25;
-    	    int textWidth = MeasureText(btnText, btnFontSize);
-    	    DrawText(btnText, generateBtn.x + generateBtn.width/2 - textWidth/2, generateBtn.y + 12, btnFontSize, BLACK);
-
-
-            // Tooltip or Debug (optional)
-            if (hoverLeft)  DrawText("Click to upload image", 20, screenHeight - 60, 20, WHITE);
+            // Tooltip
+            if (hoverLeft)
+                DrawText("Click to upload image", 20, screenHeight - 60, 20, WHITE);
 
         EndDrawing();
     }
 }
+
