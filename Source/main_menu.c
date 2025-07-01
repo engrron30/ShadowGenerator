@@ -3,7 +3,12 @@
 #include <math.h>
 
 // extern variables
-const char *gMenuItems[MENU_COUNT] = { "Start", "Credits", "Exit" };
+const char *gMenuItems[MENU_COUNT] = 
+{ 
+    "Start", 
+    "Credits", 
+    "Exit" 
+};
 MenuOption gSelectedMenu = MENU_START;
 
 
