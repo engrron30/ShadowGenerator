@@ -2,7 +2,9 @@
 #include "resources.h"
 #include <math.h>
 
-// extern variables
+// ─────────────────────────────
+// Menu Items
+// ─────────────────────────────
 const char *gMenuItems[MENU_COUNT] = 
 { 
     "Start", 
