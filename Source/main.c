@@ -43,7 +43,6 @@ int main(void)
             }
         }
 
-	//RunMainMenu(menuItems, selectedMenu);
 	RunMainMenu();
     }
 
