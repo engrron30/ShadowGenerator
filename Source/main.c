@@ -1,13 +1,11 @@
 // C Libraries
 #include <math.h>
 
-
 // Local Libraries
 #include "raylib.h"
 #include "resources.h"
 #include "main_menu.h"
 #include "start_screen.h"
-
 
 // Main Program
 int main(void)
