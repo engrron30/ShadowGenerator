@@ -216,6 +216,6 @@ void RunStartScreen(void)
         EndDrawing();
     }
 
-    if (gUserImage.id > 0) UnloadTexture(gUserImage);
+    //if (gUserImage.id > 0) UnloadTexture(gUserImage);
 }
 
