@@ -1,6 +1,7 @@
 #include "start_screen.h"
 #include "resources.h"
 #include "main_menu.h"
+#include "tinyfiledialogs.h"
 
 // ─────────────────────────────
 // UI Configuration Constants
