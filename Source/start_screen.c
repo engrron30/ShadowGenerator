@@ -187,7 +187,7 @@ void RunStartScreen(void)
         BeginDrawing();
             ClearBackground(BLANK);
 
-            // Optional background
+            // Last Menu as Background
             if (gMenuSnapshotValid) {
                 Rectangle snapshotRect = { 0, 0, (float) screenWidth, -(float) screenHeight };
                 DrawTextureRec(gMenuSnapshotTexture.texture, snapshotRect, VECTOR_DEFAULT, COLOR_START_BACKGND);
@@ -195,6 +195,13 @@ void RunStartScreen(void)
 
             // Title
             DrawText(START_STR, screenWidth / 2 - MeasureText(START_STR, 60) / 2, 80, 60, YELLOW);
+
+	    // Show uploaded image in left box
+            if (gUserImage.id > 0) {
+                Rectangle src  = {0, 0, (float)gUserImage.width, (float) gUserImage.height};
+                Rectangle dest = leftBox;
+                DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, WHITE);
+            }
 
             // Left and Right Image Boxes
             DrawLabeledBox(leftBox,  "Your Image",         hoverLeft);
@@ -210,5 +217,7 @@ void RunStartScreen(void)
 
         EndDrawing();
     }
+
+    if (gUserImage.id > 0) UnloadTexture(gUserImage);
 }
 
