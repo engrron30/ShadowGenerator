@@ -198,7 +198,7 @@ void RunStartScreen(void)
 
 	    // Show uploaded image in left box
             if (gUserImage.id > 0) {
-                Rectangle src  = {0, 0, (float)gUserImage.width, (float) gUserImage.height};
+                Rectangle src  = {0, 0, (float) gUserImage.width, (float) gUserImage.height};
                 Rectangle dest = leftBox;
                 DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, WHITE);
             }
