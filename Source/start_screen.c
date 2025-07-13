@@ -82,7 +82,7 @@ static void DrawButton(Rectangle btn, const char *text, bool isClicked)
 void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool isClicked)
 {
     Color btnColor = COLOR_BTN_DEFAULT;
-    if (text == SAVE_IMG_STR && firstLoadStart) {
+    if (firstLoadStart) {
         btnColor = GRAY;
     } else if (isClicked) {
         btnColor = GRAY;
