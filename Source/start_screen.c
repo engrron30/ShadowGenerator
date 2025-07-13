@@ -38,6 +38,11 @@ const char *SAVE_IMG_STR	= "Save Image";
 Vector2 VECTOR_DEFAULT	= { 0, 0 };
 
 // ─────────────────────────────
+// UI Textures
+// ─────────────────────────────
+Texture2D gUserImage = { 0 };
+
+// ─────────────────────────────
 // UI Boolean States
 // ─────────────────────────────
 static bool hoverLeft;
@@ -146,6 +151,28 @@ void RunStartScreen(void)
         hoverRight	= CheckCollisionPointRec(mouse, rightBox);
         hoverGenerate	= CheckCollisionPointRec(mouse, generateBtn);
 	hoverSave	= CheckCollisionPointRec(mouse, saveBtn);
+
+
+        // ─────────────────────────────
+        // Handle image selection
+        // ─────────────────────────────
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            if (hoverLeft) {
+                const char *filters[] = { "*.png", "*.jpg", "*.jpeg", "*.bmp" };
+                const char *filePath = tinyfd_openFileDialog(
+                    "Select an Image", "", 4, filters, "Image files", 0
+                );
+
+                if (filePath) {
+                    if (gUserImage.id > 0) UnloadTexture(gUserImage);
+                    Image img = LoadImage(filePath);
+                    gUserImage = LoadTextureFromImage(img);
+                    UnloadImage(img);
+                    firstLoadStart = false;
+                }
+            }
+	}
+
 
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
             generateClickTime = GetTime();
