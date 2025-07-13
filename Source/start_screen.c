@@ -83,16 +83,13 @@ void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool
 {
     Color btnColor = COLOR_BTN_DEFAULT;
     if (text == SAVE_IMG_STR && firstLoadStart) {
-	btnColor = GRAY;
-	goto JUMP_TO_DRAW;
+        btnColor = GRAY;
+    } else if (isClicked) {
+        btnColor = GRAY;
+    } else if (isHovered) {
+        btnColor = LIGHTGRAY;
     }
 
-    if (isClicked)
-        btnColor = GRAY;
-    else if (isHovered)
-        btnColor = LIGHTGRAY;
-
-JUMP_TO_DRAW:
     DrawRectangleRec(btn, btnColor);
     DrawRectangleLinesEx(btn, 2, BLACK);
 
