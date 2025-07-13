@@ -152,7 +152,6 @@ void RunStartScreen(void)
         hoverGenerate	= CheckCollisionPointRec(mouse, generateBtn);
 	hoverSave	= CheckCollisionPointRec(mouse, saveBtn);
 
-
         // ─────────────────────────────
         // Handle image selection
         // ─────────────────────────────
@@ -172,7 +171,6 @@ void RunStartScreen(void)
                 }
             }
 	}
-
 
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
             generateClickTime = GetTime();
