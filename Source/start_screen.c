@@ -210,7 +210,17 @@ void RunStartScreen(void)
                 int textWidth = MeasureText(plus, fontSize);
                 int textX = leftBox.x + leftBox.width / 2 - textWidth / 2;
                 int textY = leftBox.y + leftBox.height / 2 - fontSize / 2;
-                DrawRectangleLinesEx(leftBox, BOX_BORDER, BLACK);
+    
+                // Calculate a rectangle around the plus sign
+                int padding = 20; // Adjust as needed
+                Rectangle plusBox = {
+                    textX - padding / 2,
+                    textY - padding / 2,
+                    textWidth + padding,
+                    fontSize + padding
+                };
+
+                DrawRectangleLinesEx(plusBox, 2, BLACK);
                 DrawText(plus, textX, textY, fontSize, GRAY);
             }
 
