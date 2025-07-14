@@ -195,24 +195,11 @@ void RunStartScreen(void)
             DrawText(START_STR, screenWidth / 2 - MeasureText(START_STR, 60) / 2, 80, 60, YELLOW);
 
 	    // Show uploaded image in left box
-            /*if (gUserImage.id > 0) {
-                Rectangle src  = {0, 0, (float) gUserImage.width, (float) gUserImage.height};
-                Rectangle dest = leftBox;
-                DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, COLOR_START_BACKGND);
-            }*/
-
-	    // Show uploaded image in left box
             if (gUserImage.id > 0) {
                 Rectangle src  = {0, 0, (float) gUserImage.width, (float) gUserImage.height};
                 Rectangle dest = leftBox;
                 DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, WHITE);
             }
-	    /*// Show uploaded image in left box
-            if (gUserImage.id > 0) {
-                Rectangle src  = {0, 0, (float) gUserImage.width, (float) gUserImage.height};
-                Rectangle dest = leftBox;
-                DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, WHITE);
-            }*/
 
             // Left and Right Image Boxes
             DrawLabeledBox(leftBox,  "Your Image",         hoverLeft);
