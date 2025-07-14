@@ -198,20 +198,20 @@ void RunStartScreen(void)
             DrawLabeledBox(leftBox,  "Your Image",         hoverLeft);
             DrawLabeledBox(rightBox, "Generated Shadow",   hoverRight);
 
-	    // Show uploaded image in left box
+	        // Show uploaded image in left box
             if (gUserImage.id > 0) {
                 Rectangle src  = {0, 0, (float) gUserImage.width, (float) gUserImage.height};
                 Rectangle dest = leftBox;
-} else {
-    // Draw a centered plus sign if no image
-    const char *plus = "+";
-    int fontSize = 100;
-    int textWidth = MeasureText(plus, fontSize);
-    int textX = leftBox.x + leftBox.width / 2 - textWidth / 2;
-    int textY = leftBox.y + leftBox.height / 2 - fontSize / 2;
-
-    DrawText(plus, textX, textY, fontSize, GRAY);
-}                DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, WHITE);
+                DrawTexturePro(gUserImage, src, dest, VECTOR_DEFAULT, 0.0f, WHITE);
+            } else {
+            // Draw a centered plus sign if no image
+                const char *plus = "+";
+                int fontSize = 100;
+                int textWidth = MeasureText(plus, fontSize);
+                int textX = leftBox.x + leftBox.width / 2 - textWidth / 2;
+                int textY = leftBox.y + leftBox.height / 2 - fontSize / 2;
+                DrawText(plus, textX, textY, fontSize, GRAY);
+            }
 
             // Generate Button
 	    DrawInteractiveButton(generateBtn,	GENERATE_STR,	hoverGenerate,	generateClicked);
