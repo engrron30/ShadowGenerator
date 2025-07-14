@@ -210,6 +210,7 @@ void RunStartScreen(void)
                 int textWidth = MeasureText(plus, fontSize);
                 int textX = leftBox.x + leftBox.width / 2 - textWidth / 2;
                 int textY = leftBox.y + leftBox.height / 2 - fontSize / 2;
+                DrawRectangleLinesEx(leftBox, BOX_BORDER, BLACK);
                 DrawText(plus, textX, textY, fontSize, GRAY);
             }
 
