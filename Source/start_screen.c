@@ -214,8 +214,8 @@ void RunStartScreen(void)
             }
 
             // Generate Button
-	    DrawInteractiveButton(generateBtn,	GENERATE_STR,	hoverGenerate,	generateClicked);
-	    DrawInteractiveButton(saveBtn,	SAVE_IMG_STR,	hoverSave,	false);
+	        DrawInteractiveButton(generateBtn,	GENERATE_STR,	hoverGenerate,	generateClicked);
+	        DrawInteractiveButton(saveBtn,	SAVE_IMG_STR,	hoverSave,	false);
 
             // Tooltip
             if (hoverLeft)
