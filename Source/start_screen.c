@@ -221,6 +221,7 @@ void RunStartScreen(void)
                 };
 
                 DrawRectangleLinesEx(plusBox, 2, BLACK);
+                DrawText(plus, textX, textY, fontSize + 10, BLACK);
                 DrawText(plus, textX, textY, fontSize, GRAY);
             }
 
