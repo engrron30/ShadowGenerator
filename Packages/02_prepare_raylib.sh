@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# this script prepares the Raylib code in Package directory.
+# Only run when executing in Linux
+# No need to run if you have Raylib already in your machine
+
 RAYLIB_HEADER_GLOBAL="/usr/include/raylib.h"
 RAYLIB_HEADER_LOCAL="./raylib/src/raylib.h"
 REPO_URL="https://github.com/raysan5/raylib"

@@ -6,9 +6,12 @@
 
 extern Texture2D gBlueExplosionTexture;
 extern Texture2D gWhosThatPokemonTexture;
+extern RenderTexture2D gMenuSnapshotTexture;
+extern bool gMenuSnapshotValid;
 
 void InitResources(void);
 void UnloadResources(void);
+void CaptureMenuSnapshot(void);
 
 #endif // RESOURCES_H
 

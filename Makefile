@@ -9,9 +9,14 @@ RAYLIB_DIR := Packages/raylib
 RAYLIB_SRC := $(RAYLIB_DIR)/src
 RAYLIB_LIB := $(RAYLIB_DIR)/build/raylib/libraylib.a
 
+# === Local TinyFileDialogs ===
+TINY_DIR := Packages/libtinyfiledialogs
+SRC_FILES += $(TINY_DIR)/tinyfiledialogs.c
+
 # === Compiler Flags ===
 CFLAGS :=
 CFLAGS += -I$(RAYLIB_SRC)
+CFLAGS += -I$(TINY_DIR)
 CFLAGS += -I$(INC_DIR)
 
 LDFLAGS :=
