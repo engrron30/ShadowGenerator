@@ -3,6 +3,9 @@
 #include "main_menu.h"
 #include "tinyfiledialogs.h"
 
+#define SCRIPTS_DIR                     "Scripts/"
+#define GENERATE_SHADOW_PYTHON_FILE     "generate-shadow-image.py"
+
 // ─────────────────────────────
 // UI Configuration Constants
 // ─────────────────────────────
@@ -31,6 +34,7 @@ Color COLOR_BTN_CLICK     = GRAY;
 const char *START_STR      = "Start";
 const char *GENERATE_STR   = "Generate";
 const char *SAVE_IMG_STR   = "Save Image";
+char gImagePath[1024] = { 0 };
 
 // ─────────────────────────────
 // UI Vectors & Textures
@@ -123,6 +127,7 @@ static void HandleImageSelection(void) {
             Image img = LoadImage(filePath);
             gUserImage = LoadTextureFromImage(img);
             UnloadImage(img);
+            snprintf(gImagePath, sizeof(gImagePath), "%s", filePath);
             firstLoadStart = false;
         }
     }
@@ -135,6 +140,20 @@ static void HandleGenerateClick(void) {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
         generateClickTime = GetTime();
         generateClicked = true;
+    }
+
+    if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
+        generateClicked = false;
+
+        char cmd[600];
+        snprintf(cmd, sizeof(cmd), "python3 %s/%s \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
+        int ret = system(cmd);
+
+        if (ret != 0) {
+            TraceLog(LOG_WARNING, "Failed to execute Python script");
+        } else {
+            TraceLog(LOG_INFO, "Python script executed successfully");
+        }
     }
 
     if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
