@@ -13,26 +13,7 @@ const char *gMenuItems[MENU_COUNT] =
 };
 MenuOption gSelectedMenu = MENU_START;
 
-
-static void addControlNotes()
-{
-    float time = GetTime();
-    float scale = 1.0f + 0.1f * sinf(time * 4.0f);
-    int baseSize = 25;
-    int fontSize = baseSize * scale;
-    int margin = 20;
-    int textY = GetScreenHeight()/3 + 500 - fontSize;
-    int textX = GetScreenWidth()/1.3 - fontSize * 2 - margin - 150;
-    const char *text = "[ Press ENTER to select ]";
-    int outlineSize = 3;
-    Color outlineColor = BLACK;
-
-    DrawText(text, textX - outlineSize, textY, fontSize, outlineColor);
-    DrawText(text, textX + outlineSize, textY, fontSize, outlineColor);
-    DrawText(text, textX, textY - outlineSize, fontSize, outlineColor);
-    DrawText(text, textX, textY + outlineSize, fontSize, outlineColor);
-    DrawText(text, textX, textY, fontSize, YELLOW);
-}
+static void addControlNotes();
 
 static void addVersion()
 {
@@ -84,3 +65,22 @@ void RunMainMenu( void )
     EndDrawing();
 }
 
+static void addControlNotes()
+{
+    float time = GetTime();
+    float scale = 1.0f + 0.1f * sinf(time * 4.0f);
+    int baseSize = 25;
+    int fontSize = baseSize * scale;
+    int margin = 20;
+    int textY = GetScreenHeight()/3 + 500 - fontSize;
+    int textX = GetScreenWidth()/1.3 - fontSize * 2 - margin - 150;
+    const char *text = "[ Press ENTER to select ]";
+    int outlineSize = 3;
+    Color outlineColor = BLACK;
+
+    DrawText(text, textX - outlineSize, textY, fontSize, outlineColor);
+    DrawText(text, textX + outlineSize, textY, fontSize, outlineColor);
+    DrawText(text, textX, textY - outlineSize, fontSize, outlineColor);
+    DrawText(text, textX, textY + outlineSize, fontSize, outlineColor);
+    DrawText(text, textX, textY, fontSize, YELLOW);
+}
