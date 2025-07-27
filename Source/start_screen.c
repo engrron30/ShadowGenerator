@@ -60,28 +60,7 @@ bool generateClicked = false;
 
 static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered);
 static void DrawButton(Rectangle btn, const char *text, bool isClicked);
-
-// ─────────────────────────────
-// Draw Button
-// ─────────────────────────────
-void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool isClicked)
-{
-    Color btnColor = COLOR_BTN_DEFAULT;
-    if (firstLoadStart) {
-        btnColor = GRAY;
-    } else if (isClicked) {
-        btnColor = GRAY;
-    } else if (isHovered) {
-        btnColor = LIGHTGRAY;
-    }
-
-    DrawRectangleRec(btn, btnColor);
-    DrawRectangleLinesEx(btn, 2, BLACK);
-
-    int textWidth = MeasureText(text, FONT_SIZE_LABEL);
-    DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
-}
-
+static void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool isClicked);
 
 // ─────────────────────────────
 // Main Start Screen UI Logic
@@ -227,6 +206,27 @@ static void DrawButton(Rectangle btn, const char *text, bool isClicked)
 {
     Color fillColor = isClicked ? COLOR_BTN_CLICK : COLOR_BTN_DEFAULT;
     DrawRectangleRec(btn, fillColor);
+    DrawRectangleLinesEx(btn, 2, BLACK);
+
+    int textWidth = MeasureText(text, FONT_SIZE_LABEL);
+    DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
+}
+
+// ─────────────────────────────
+// Draw Button
+// ─────────────────────────────
+static void DrawInteractiveButton(Rectangle btn, const char *text, bool isHovered, bool isClicked)
+{
+    Color btnColor = COLOR_BTN_DEFAULT;
+    if (firstLoadStart) {
+        btnColor = GRAY;
+    } else if (isClicked) {
+        btnColor = GRAY;
+    } else if (isHovered) {
+        btnColor = LIGHTGRAY;
+    }
+
+    DrawRectangleRec(btn, btnColor);
     DrawRectangleLinesEx(btn, 2, BLACK);
 
     int textWidth = MeasureText(text, FONT_SIZE_LABEL);
