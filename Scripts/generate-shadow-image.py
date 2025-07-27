@@ -2,8 +2,15 @@ from PIL import Image
 import os
 import sys
 
+output_file_name = "Scripts/OutputShadow.png"
+
 def add_shadow_to_image(image_path):
     try:
+        # Remove input file if it exists
+        if os.path.exists(output_file_name):
+            os.remove(output_file_name)
+            print(f"🗑️ Removed existing file: {output_file_name}")
+
         # Open and convert image
         image = Image.open(image_path).convert('RGBA')
         
@@ -17,11 +24,10 @@ def add_shadow_to_image(image_path):
 
         # Create output file path
         filename = os.path.basename(image_path)
-        output_path = "Scripts/OutputShadow.png"
 
         # Save result
-        result_image.save(output_path)
-        print(f"✅ Shadow added. Saved to: {output_path}")
+        result_image.save(output_file_name)
+        print(f"✅ Shadow added. Saved to: {output_file_name}")
         
     except FileNotFoundError:
         print("❌ File not found.")
