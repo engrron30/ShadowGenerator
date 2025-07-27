@@ -5,26 +5,16 @@
 // ─────────────────────────────
 // Menu Items
 // ─────────────────────────────
-const char *gMenuItems[MENU_COUNT] = 
-{ 
+const char *gMenuItems[MENU_COUNT] = { 
     "Start", 
     "Credits", 
     "Exit" 
 };
+
 MenuOption gSelectedMenu = MENU_START;
 
 static void addControlNotes();
-
-static void addVersion()
-{
-    const char *footer = "ShadowGenv2.0";
-    int fontSize = 20;
-    int margin = 20;
-    int textY = GetScreenHeight() - fontSize - margin;
-    int textX = GetScreenWidth() - fontSize - margin - 150;
-
-    DrawText(footer, textX, textY, fontSize, BLACK);
-}
+static void addVersion();
 
 void RunMainMenu( void )
 {
@@ -83,4 +73,15 @@ static void addControlNotes()
     DrawText(text, textX, textY - outlineSize, fontSize, outlineColor);
     DrawText(text, textX, textY + outlineSize, fontSize, outlineColor);
     DrawText(text, textX, textY, fontSize, YELLOW);
+}
+
+static void addVersion()
+{
+    const char *footer = "ShadowGenv2.0";
+    int fontSize = 20;
+    int margin = 20;
+    int textY = GetScreenHeight() - fontSize - margin;
+    int textX = GetScreenWidth() - fontSize - margin - 150;
+
+    DrawText(footer, textX, textY, fontSize, BLACK);
 }
