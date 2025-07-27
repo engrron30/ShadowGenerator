@@ -2,6 +2,8 @@
 #include "resources.h"
 #include <math.h>
 
+#define SHADOWGEN_VERSION       "ShadowGenv3.0"
+
 // ─────────────────────────────
 // Menu Items
 // ─────────────────────────────
@@ -16,6 +18,9 @@ MenuOption gSelectedMenu = MENU_START;
 static void addControlNotes();
 static void addVersion();
 
+// ─────────────────────────────
+// Main Menu entry point
+// ─────────────────────────────
 void RunMainMenu( void )
 {
 
@@ -55,6 +60,9 @@ void RunMainMenu( void )
     EndDrawing();
 }
 
+// ─────────────────────────────
+// Add control notes on how to control the main menu
+// ─────────────────────────────
 static void addControlNotes()
 {
     float time = GetTime();
@@ -75,13 +83,16 @@ static void addControlNotes()
     DrawText(text, textX, textY, fontSize, YELLOW);
 }
 
+
+// ─────────────────────────────
+// Add version for ShadowGen in Main Menu
+// ─────────────────────────────
 static void addVersion()
 {
-    const char *footer = "ShadowGenv2.0";
     int fontSize = 20;
     int margin = 20;
     int textY = GetScreenHeight() - fontSize - margin;
     int textX = GetScreenWidth() - fontSize - margin - 150;
 
-    DrawText(footer, textX, textY, fontSize, BLACK);
+    DrawText(SHADOWGEN_VERSION, textX, textY, fontSize, BLACK);
 }
