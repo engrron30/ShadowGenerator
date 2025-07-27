@@ -59,18 +59,7 @@ const double generateClickDelay = 0.2; // 200 milliseconds
 bool generateClicked = false;
 
 static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered);
-// ─────────────────────────────
-// Draw a centered button with text
-// ─────────────────────────────
-static void DrawButton(Rectangle btn, const char *text, bool isClicked)
-{
-    Color fillColor = isClicked ? COLOR_BTN_CLICK : COLOR_BTN_DEFAULT;
-    DrawRectangleRec(btn, fillColor);
-    DrawRectangleLinesEx(btn, 2, BLACK);
-
-    int textWidth = MeasureText(text, FONT_SIZE_LABEL);
-    DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
-}
+static void DrawButton(Rectangle btn, const char *text, bool isClicked);
 
 // ─────────────────────────────
 // Draw Button
@@ -229,4 +218,17 @@ static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
     DrawRectangleRec(box, boxColor);
     DrawRectangleLinesEx(box, BOX_BORDER, COLOR_BORDER);
     DrawText(label, box.x + 20, box.y + box.height + 10, FONT_SIZE_LABEL, COLOR_LABEL);
+}
+
+// ─────────────────────────────
+// Draw a centered button with text
+// ─────────────────────────────
+static void DrawButton(Rectangle btn, const char *text, bool isClicked)
+{
+    Color fillColor = isClicked ? COLOR_BTN_CLICK : COLOR_BTN_DEFAULT;
+    DrawRectangleRec(btn, fillColor);
+    DrawRectangleLinesEx(btn, 2, BLACK);
+
+    int textWidth = MeasureText(text, FONT_SIZE_LABEL);
+    DrawText(text, btn.x + btn.width / 2 - textWidth / 2, btn.y + 12, FONT_SIZE_LABEL, COLOR_BTN_TEXT);
 }
