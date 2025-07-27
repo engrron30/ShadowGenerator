@@ -1,13 +1,10 @@
-// C Libraries
 #include <math.h>
 
-// Local Libraries
 #include "raylib.h"
 #include "resources.h"
 #include "main_menu.h"
 #include "start_screen.h"
 
-// Main Program
 int main(void)
 {
 
@@ -18,7 +15,6 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        // Handle input
         if (IsKeyPressed(KEY_DOWN)) gSelectedMenu = (gSelectedMenu + 1) % MENU_COUNT;
         if (IsKeyPressed(KEY_UP))   gSelectedMenu = (gSelectedMenu - 1 + MENU_COUNT) % MENU_COUNT;
 
@@ -27,9 +23,8 @@ int main(void)
 
                 case MENU_START:
                     TraceLog(LOG_INFO, "Start selected");
-                    // TODO: Add your start logic here
-		    CaptureMenuSnapshot();
-		    RunStartScreen();
+		            CaptureMenuSnapshot();
+		            RunStartScreen();
                     break;
 
                 case MENU_CREDITS:
@@ -42,7 +37,8 @@ int main(void)
                     return 0;
             }
         }
-	RunMainMenu();
+
+	    RunMainMenu();
     }
 
     UnloadResources();
