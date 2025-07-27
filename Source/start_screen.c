@@ -58,17 +58,7 @@ double generateClickTime 	= 0;
 const double generateClickDelay = 0.2; // 200 milliseconds
 bool generateClicked = false;
 
-// ─────────────────────────────
-// Draw a hoverable box with a label
-// ─────────────────────────────
-static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
-{
-    Color boxColor = isHovered ? COLOR_BOX_HOVER : COLOR_BOX_DEFAULT;
-    DrawRectangleRec(box, boxColor);
-    DrawRectangleLinesEx(box, BOX_BORDER, COLOR_BORDER);
-    DrawText(label, box.x + 20, box.y + box.height + 10, FONT_SIZE_LABEL, COLOR_LABEL);
-}
-
+static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered);
 // ─────────────────────────────
 // Draw a centered button with text
 // ─────────────────────────────
@@ -229,3 +219,14 @@ void RunStartScreen(void)
     //if (gUserImage.id > 0) UnloadTexture(gUserImage);
 }
 
+
+// ─────────────────────────────
+// Draw a hoverable box with a label
+// ─────────────────────────────
+static void DrawLabeledBox(Rectangle box, const char *label, bool isHovered)
+{
+    Color boxColor = isHovered ? COLOR_BOX_HOVER : COLOR_BOX_DEFAULT;
+    DrawRectangleRec(box, boxColor);
+    DrawRectangleLinesEx(box, BOX_BORDER, COLOR_BORDER);
+    DrawText(label, box.x + 20, box.y + box.height + 10, FONT_SIZE_LABEL, COLOR_LABEL);
+}
