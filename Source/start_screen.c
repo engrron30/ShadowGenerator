@@ -145,9 +145,9 @@ static void HandleGenerateClick(void) {
     if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
         generateClicked = false;
 
-        char cmd[600];
-        snprintf(cmd, sizeof(cmd), "python3 %s/%s \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
-        int ret = system(cmd);
+        char generate_shadow_python_cmd[600];
+        snprintf(generate_shadow_python_cmd, sizeof(generate_shadow_python_cmd), "python3 %s/%s \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
+        int ret = system(generate_shadow_python_cmd);
 
         if (ret != 0) {
             TraceLog(LOG_WARNING, "Failed to execute Python script");

@@ -4,8 +4,6 @@ import sys
 
 def add_shadow_to_image(image_path):
     try:
-        # os.makedirs("shadow_folder", exist_ok=True)
-
         # Open and convert image
         image = Image.open(image_path).convert('RGBA')
         
@@ -19,7 +17,7 @@ def add_shadow_to_image(image_path):
 
         # Create output file path
         filename = os.path.basename(image_path)
-        output_path = f"OutputShadow_{filename}"
+        output_path = "Scripts/OutputShadow.png"
 
         # Save result
         result_image.save(output_path)
