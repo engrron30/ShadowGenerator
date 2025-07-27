@@ -5,16 +5,17 @@
 
 #define SCRIPTS_DIR                     "Scripts/"
 #define GENERATE_SHADOW_PYTHON_FILE     "generate-shadow-image.py"
+#define OUTPUT_SHADOW_FILE              "OutputShadow.png"
 
 // ─────────────────────────────
 // UI Configuration Constants
 // ─────────────────────────────
-const int BOX_WIDTH = 600;
-const int BOX_HEIGHT = 600;
-const int BOX_BORDER = 4;
-const int FONT_SIZE_LABEL = 25;
-const int BTN_WIDTH = 200;
-const int BTN_HEIGHT = 50;
+const int BOX_WIDTH         = 600;
+const int BOX_HEIGHT        = 600;
+const int BOX_BORDER        = 4;
+const int FONT_SIZE_LABEL   = 25;
+const int BTN_WIDTH         = 200;
+const int BTN_HEIGHT        = 50;
 
 // ─────────────────────────────
 // UI Colors
@@ -34,25 +35,30 @@ Color COLOR_BTN_CLICK     = GRAY;
 const char *START_STR      = "Start";
 const char *GENERATE_STR   = "Generate";
 const char *SAVE_IMG_STR   = "Save Image";
-char gImagePath[1024] = { 0 };
+char gImagePath[1024]      = { 0 };
 
 // ─────────────────────────────
 // UI Vectors & Textures
 // ─────────────────────────────
-Vector2 VECTOR_DEFAULT = { 0, 0 };
-Texture2D gUserImage = { 0 };
+Vector2 VECTOR_DEFAULT  = { 0, 0 };
+Texture2D gUserImage    = { 0 };
+Texture2D gShadowImage  = { 0 };
 
 // ─────────────────────────────
 // UI Boolean States
 // ─────────────────────────────
-static bool hoverLeft, hoverRight, hoverGenerate, hoverSave, firstLoadStart = true;
+static bool hoverLeft       = true; 
+static bool hoverRight      = true;
+static bool hoverGenerate   = true;
+static bool hoverSave       = true;
+static bool firstLoadStart  = true;
 
 // ─────────────────────────────
 // Generate Button Delay
 // ─────────────────────────────
-double generateClickTime = 0;
+double generateClickTime        = 0;
 const double generateClickDelay = 0.2;
-bool generateClicked = false;
+bool generateClicked            = false;
 
 // ─────────────────────────────
 // Static Functions
@@ -103,6 +109,7 @@ void RunStartScreen(void) {
 
             if (gUserImage.id > 0) DrawUserImage(leftBox);
             else DrawPlusSign(leftBox);
+            if (gShadowImage.id > 0) DrawTexturePro(gShadowImage, (Rectangle){0, 0, gShadowImage.width, gShadowImage.height}, rightBox, VECTOR_DEFAULT, 0.0f, WHITE);
 
             DrawInteractiveButton(generateBtn, GENERATE_STR, hoverGenerate, generateClicked);
             DrawInteractiveButton(saveBtn, SAVE_IMG_STR, hoverSave, false);
@@ -143,12 +150,24 @@ static void HandleGenerateClick(void) {
     }
 
     if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
-        char generate_shadow_python_cmd[600];
+        char generate_shadow_python_cmd[128];
         snprintf(generate_shadow_python_cmd, sizeof(generate_shadow_python_cmd), "python3 %s/%s \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
         int ret = system(generate_shadow_python_cmd);
 
         if (ret) {
             TraceLog(LOG_INFO, "Python script executed successfully");
+
+            // Unload old shadow image if any
+            if (gShadowImage.id > 0) {
+                UnloadTexture(gShadowImage);
+            }
+
+            // Load new shadow image
+            char shadow_file_path[128] = { 0 };
+            snprintf(shadow_file_path, sizeof(shadow_file_path), "%s/%s", SCRIPTS_DIR, OUTPUT_SHADOW_FILE);
+            Image shadowImg = LoadImage(shadow_file_path);
+            gShadowImage    = LoadTextureFromImage(shadowImg);
+            UnloadImage(shadowImg);
         }
     }
 
