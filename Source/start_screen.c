@@ -105,10 +105,10 @@ void RunStartScreen(void)
 
         Vector2 mouse = GetMousePosition();
 
-        hoverLeft	= CheckCollisionPointRec(mouse, leftBox);
-        hoverRight	= CheckCollisionPointRec(mouse, rightBox);
+        hoverLeft	    = CheckCollisionPointRec(mouse, leftBox);
+        hoverRight	    = CheckCollisionPointRec(mouse, rightBox);
         hoverGenerate	= CheckCollisionPointRec(mouse, generateBtn);
-	    hoverSave	= CheckCollisionPointRec(mouse, saveBtn);
+	    hoverSave	    = CheckCollisionPointRec(mouse, saveBtn);
 
         // ─────────────────────────────
         // Handle image selection
@@ -128,16 +128,16 @@ void RunStartScreen(void)
                     firstLoadStart = false;
                 }
             }
-	}
+	    }
 
-	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
+	    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
             generateClickTime = GetTime();
             generateClicked = true;
-	}
+	    }
 
-	if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
+	    if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
             generateClicked = false;
-	}
+	    }
 
 
         BeginDrawing();
