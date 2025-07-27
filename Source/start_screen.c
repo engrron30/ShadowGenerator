@@ -150,7 +150,7 @@ void RunStartScreen(void)
         hoverLeft	= CheckCollisionPointRec(mouse, leftBox);
         hoverRight	= CheckCollisionPointRec(mouse, rightBox);
         hoverGenerate	= CheckCollisionPointRec(mouse, generateBtn);
-	hoverSave	= CheckCollisionPointRec(mouse, saveBtn);
+	    hoverSave	= CheckCollisionPointRec(mouse, saveBtn);
 
         // ─────────────────────────────
         // Handle image selection
