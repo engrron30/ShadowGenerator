@@ -144,40 +144,6 @@ static void HandleImageSelection(void) {
 // ─────────────────────────────
 // Generate Button Handler
 // ─────────────────────────────
-/*static void HandleGenerateClick(void) {
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
-        generateClickTime = GetTime();
-        generateClicked = true;
-    }
-
-    if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
-        generateClicked = false;
-
-        char generate_shadow_python_cmd[128];
-        snprintf(generate_shadow_python_cmd, sizeof(generate_shadow_python_cmd), "python3 %s/%s \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
-        int ret = system(generate_shadow_python_cmd);
-
-        if (ret) {
-            TraceLog(LOG_INFO, "Python script executed successfully");
-
-            // Unload old shadow image if any
-            if (gShadowImage.id > 0) {
-                UnloadTexture(gShadowImage);
-            }
-
-            // Load new shadow image
-            char shadow_file_path[128] = { 0 };
-            snprintf(shadow_file_path, sizeof(shadow_file_path), "%s/%s", SCRIPTS_DIR, OUTPUT_SHADOW_FILE);
-            Image shadowImg = LoadImage(shadow_file_path);
-            gShadowImage    = LoadTextureFromImage(shadowImg);
-            UnloadImage(shadowImg);
-        }
-    }
-
-    if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
-        generateClicked = false;
-    }
-}*/
 static void HandleGenerateClick(void) {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && hoverGenerate) {
         generateClickTime = GetTime();
@@ -187,7 +153,6 @@ static void HandleGenerateClick(void) {
     if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
         generateClicked = false;
 
-        // Call Python script
         char generate_shadow_python_cmd[256];
         snprintf(generate_shadow_python_cmd, sizeof(generate_shadow_python_cmd),
                  "python3 \"%s/%s\" \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
