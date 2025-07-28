@@ -1,4 +1,3 @@
-// Include/resources.h
 #ifndef RESOURCES_H
 #define RESOURCES_H
 
@@ -13,5 +12,5 @@ void InitResources(void);
 void UnloadResources(void);
 void CaptureMenuSnapshot(void);
 
-#endif // RESOURCES_H
+#endif
 

@@ -1,6 +1,8 @@
+#include <math.h>
+
+#include "raylib.h"
 #include "main_menu.h"
 #include "resources.h"
-#include <math.h>
 
 #define SHADOWGEN_VERSION       "ShadowGenv3.0"
 
@@ -82,7 +84,6 @@ static void addControlNotes()
     DrawText(text, textX, textY + outlineSize, fontSize, outlineColor);
     DrawText(text, textX, textY, fontSize, YELLOW);
 }
-
 
 // ─────────────────────────────
 // Add version for ShadowGen in Main Menu
