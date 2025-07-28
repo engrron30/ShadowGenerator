@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "start_screen.h"
+#include "generate_shadow.h"
 #include "resources.h"
 #include "main_menu.h"
 #include "tinyfiledialogs.h"
@@ -154,8 +155,9 @@ static void HandleGenerateClick(void) {
 
     if (generateClicked && (GetTime() - generateClickTime >= generateClickDelay)) {
         generateClicked = false;
+        generate_shadow();
 
-        char generate_shadow_python_cmd[256];
+        /*char generate_shadow_python_cmd[256];
         snprintf(generate_shadow_python_cmd, sizeof(generate_shadow_python_cmd),
                  "python3 \"%s/%s\" \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
         int ret = system(generate_shadow_python_cmd);
@@ -182,7 +184,7 @@ static void HandleGenerateClick(void) {
             UnloadImage(shadowImg);
         } else {
             TraceLog(LOG_WARNING, "❌ Shadow image not found: %s", shadow_file_path);
-        }
+        }*/
     }
 }
 
