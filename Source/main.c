@@ -23,8 +23,8 @@ int main(void)
 
                 case MENU_START:
                     TraceLog(LOG_INFO, "Start selected");
-		            CaptureMenuSnapshot();
-		            RunStartScreen();
+                    CaptureMenuSnapshot();
+                    RunStartScreen();
                     break;
 
                 case MENU_CREDITS:
@@ -38,7 +38,7 @@ int main(void)
             }
         }
 
-	    RunMainMenu();
+        RunMainMenu();
     }
 
     UnloadResources();
