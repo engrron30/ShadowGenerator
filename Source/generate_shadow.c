@@ -14,10 +14,9 @@ extern Texture2D gShadowImage;
 
 void generate_shadow()
 {
-    char generate_shadow_python_cmd[256];
-    snprintf(generate_shadow_python_cmd, sizeof(generate_shadow_python_cmd),
-             "python3 \"%s/%s\" \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
-    int ret = system(generate_shadow_python_cmd);
+    char cmd[256];
+    snprintf(cmd, sizeof(cmd),"python3 \"%s/%s\" \"%s\"", SCRIPTS_DIR, GENERATE_SHADOW_PYTHON_FILE, gImagePath);
+    int ret = system(cmd);
     
     if (ret != 0) {
         TraceLog(LOG_WARNING, "❌ Python script failed to execute (code: %d)", ret);
