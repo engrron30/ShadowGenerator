@@ -1,7 +1,7 @@
 #include "raylib.h"
-#include "resources.h"
-#include "main_menu.h"
-#include "start_screen.h"
+#include "resources.h"          // InitResources();
+#include "main_menu.h"          // RunMainMenu();  
+#include "start_screen.h"       // RunStartScreen();
 
 static void HandleMenuSelection(void);
 
