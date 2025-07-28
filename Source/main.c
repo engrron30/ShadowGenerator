@@ -1,5 +1,3 @@
-#include <math.h>
-
 #include "raylib.h"
 #include "resources.h"
 #include "main_menu.h"
