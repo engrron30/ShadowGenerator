@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "start_screen.h"
 #include "resources.h"
 #include "main_menu.h"
