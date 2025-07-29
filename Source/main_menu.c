@@ -1,50 +1,28 @@
+#include <math.h>
+
+#include "raylib.h"
 #include "main_menu.h"
 #include "resources.h"
-#include <math.h>
+
+#define SHADOWGEN_VERSION       "ShadowGenv3.0"
 
 // ─────────────────────────────
 // Menu Items
 // ─────────────────────────────
-const char *gMenuItems[MENU_COUNT] = 
-{ 
+const char *gMenuItems[MENU_COUNT] = { 
     "Start", 
     "Credits", 
     "Exit" 
 };
+
 MenuOption gSelectedMenu = MENU_START;
 
+static void addControlNotes();
+static void addVersion();
 
-static void addControlNotes()
-{
-    float time = GetTime();
-    float scale = 1.0f + 0.1f * sinf(time * 4.0f);
-    int baseSize = 25;
-    int fontSize = baseSize * scale;
-    int margin = 20;
-    int textY = GetScreenHeight()/3 + 500 - fontSize;
-    int textX = GetScreenWidth()/1.3 - fontSize * 2 - margin - 150;
-    const char *text = "[ Press ENTER to select ]";
-    int outlineSize = 3;
-    Color outlineColor = BLACK;
-
-    DrawText(text, textX - outlineSize, textY, fontSize, outlineColor);
-    DrawText(text, textX + outlineSize, textY, fontSize, outlineColor);
-    DrawText(text, textX, textY - outlineSize, fontSize, outlineColor);
-    DrawText(text, textX, textY + outlineSize, fontSize, outlineColor);
-    DrawText(text, textX, textY, fontSize, YELLOW);
-}
-
-static void addVersion()
-{
-    const char *footer = "ShadowGenv2.0";
-    int fontSize = 20;
-    int margin = 20;
-    int textY = GetScreenHeight() - fontSize - margin;
-    int textX = GetScreenWidth() - fontSize - margin - 150;
-
-    DrawText(footer, textX, textY, fontSize, BLACK);
-}
-
+// ─────────────────────────────
+// Main Menu entry point
+// ─────────────────────────────
 void RunMainMenu( void )
 {
 
@@ -84,3 +62,38 @@ void RunMainMenu( void )
     EndDrawing();
 }
 
+// ─────────────────────────────
+// Add control notes on how to control the main menu
+// ─────────────────────────────
+static void addControlNotes()
+{
+    float time = GetTime();
+    float scale = 1.0f + 0.1f * sinf(time * 4.0f);
+    int baseSize = 25;
+    int fontSize = baseSize * scale;
+    int margin = 20;
+    int textY = GetScreenHeight()/3 + 500 - fontSize;
+    int textX = GetScreenWidth()/1.3 - fontSize * 2 - margin - 150;
+    const char *text = "[ Press ENTER to select ]";
+    int outlineSize = 3;
+    Color outlineColor = BLACK;
+
+    DrawText(text, textX - outlineSize, textY, fontSize, outlineColor);
+    DrawText(text, textX + outlineSize, textY, fontSize, outlineColor);
+    DrawText(text, textX, textY - outlineSize, fontSize, outlineColor);
+    DrawText(text, textX, textY + outlineSize, fontSize, outlineColor);
+    DrawText(text, textX, textY, fontSize, YELLOW);
+}
+
+// ─────────────────────────────
+// Add version for ShadowGen in Main Menu
+// ─────────────────────────────
+static void addVersion()
+{
+    int fontSize = 20;
+    int margin = 20;
+    int textY = GetScreenHeight() - fontSize - margin;
+    int textX = GetScreenWidth() - fontSize - margin - 150;
+
+    DrawText(SHADOWGEN_VERSION, textX, textY, fontSize, BLACK);
+}
